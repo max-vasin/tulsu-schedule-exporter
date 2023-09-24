@@ -20,13 +20,24 @@ try
 
             var portal = new Portal();
             var schedule = await portal.GetSchedule(o.Group);
+            
+            
+            var exp = new Exporter(o.Output, o.Language);
+            exp.Export(schedule);
+            return;
 
-            foreach (var entry in schedule)
+            /*
+            if (!string.IsNullOrEmpty(o.Compare))
             {
-                string discipline = entry.Discipline;
-                
-                Log.Information(discipline);
+                var exporter = new Exporter(o.Compare);
+                exporter.Compare(schedule);
             }
+            else
+            {
+                var exporter = new Exporter(o.Output);
+                exporter.Export(schedule);
+            }
+            */
         });
 }
 catch (Exception e)
